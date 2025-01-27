@@ -1,7 +1,7 @@
 import asyncio
-from utils.session_handler import TelegramSession
-from utils.group_handler import GroupHandler
-from utils.logger import setup_logger
+from src.session_handler import TelegramSession
+from src.group_handler import GroupHandler
+from src.logger import setup_logger
 
 # تنظیم لاگ‌ها
 logger = setup_logger()
@@ -21,6 +21,8 @@ async def main():
 
     except Exception as e:
         logger.error(f"An unexpected error occurred: {e}")
+    finally:
+        await session.logout()
 
 if __name__ == "__main__":
     asyncio.run(main())
