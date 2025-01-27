@@ -3,19 +3,22 @@ from src.session_handler import TelegramSession
 from src.group_handler import GroupHandler
 from src.logger import setup_logger
 
-# تنظیم لاگ‌ها
+# Set up logging
 logger = setup_logger()
 
 async def main():
+    """
+    Main function to log in to Telegram, process group messages, and log out.
+    """
     try:
-        # ورود به تلگرام
+        # Log in to Telegram
         session = TelegramSession()
         client = await session.login()
 
-        # گرفتن لینک گروه از کاربر
+        # Get the group link from the user
         group_link = input("Enter the group link/ID/name: ").strip()
 
-        # پردازش گروه
+        # Process the group messages
         group_handler = GroupHandler(client)
         await group_handler.process_group_messages(group_link)
 

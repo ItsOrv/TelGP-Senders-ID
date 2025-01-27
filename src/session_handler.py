@@ -11,6 +11,10 @@ class TelegramSession:
         self.session_file = f"{SESSION_NAME}.session"
 
     async def login(self):
+        """
+        Attempt to log in using an existing session. If the session is not authorized,
+        start a new session by prompting the user for their phone number, code, and password.
+        """
         try:
             if os.path.exists(self.session_file):
                 await self.client.connect()
@@ -27,6 +31,9 @@ class TelegramSession:
             return await self._start_new_session()
 
     async def _start_new_session(self):
+        """
+        Start a new session by prompting the user for their phone number, code, and password.
+        """
         try:
             await self.client.start(
                 phone=lambda: input("Enter your phone number: "),
@@ -40,6 +47,9 @@ class TelegramSession:
             raise
 
     async def logout(self):
+        """
+        Log out and disconnect the client.
+        """
         try:
             await self.client.disconnect()
             logger.info("Logged out successfully.")

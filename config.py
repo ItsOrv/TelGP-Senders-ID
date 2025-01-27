@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 try:
@@ -10,8 +9,10 @@ try:
     SESSION_NAME = os.getenv("SESSION_NAME", "telegram_user_saver")
     LOG_FILE = os.getenv("LOG_FILE", "app.log")
 
+    # Ensure that API_ID and API_HASH are set, raise an error if not
     if not API_ID or not API_HASH:
         raise ValueError("API_ID and API_HASH must be set in the .env file")
 
 except Exception as e:
+    # Raise a runtime error if there is an issue loading the configuration
     raise RuntimeError(f"Error loading configuration: {e}")

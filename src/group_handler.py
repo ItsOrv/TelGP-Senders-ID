@@ -11,13 +11,17 @@ class GroupHandler:
         self.client = client
 
     async def process_group_messages(self, group_link):
+        """
+        Process all messages from the specified group. Save the sender's username or ID
+        to a file named after the group.
+        """
         try:
-            # اتصال به گروه
+            # Connect to the group
             entity = await self.client.get_entity(group_link)
             group_name = self._sanitize_group_name(entity.title)
             file_handler = FileHandler(group_name)
 
-            # پردازش پیام‌ها
+            # Process messages
             async for message in self.client.iter_messages(entity, reverse=True):
                 if isinstance(message, Message) and message.sender_id:
                     sender = await self.client.get_entity(message.sender_id)
@@ -32,9 +36,16 @@ class GroupHandler:
             logger.error(f"Error processing group messages: {e}")
 
     def _sanitize_group_name(self, group_name):
+        """
+        Sanitize the group name by removing any non-alphanumeric characters.
+        """
         return "".join(char if char.isalnum() or char.isspace() else "" for char in group_name)
 
     def _get_username_or_id(self, sender):
+        """
+        Get the sender's username or ID. If the sender has a username, return it with an '@' prefix.
+        Otherwise, return the sender's ID as a Telegram link.
+        """
         if sender.username:
             return f"@{sender.username}"
         else:

@@ -9,12 +9,18 @@ class FileHandler:
         self.existing_users = self._load_existing_users()
 
     def _load_existing_users(self):
+        """
+        Load existing users from the file to avoid duplicates.
+        """
         if os.path.exists(self.file_name):
             with open(self.file_name, "r", encoding="utf-8") as file:
                 return set(line.strip() for line in file)
         return set()
 
     def save_user(self, user_info):
+        """
+        Save the user information to the file if it is not already present.
+        """
         if user_info not in self.existing_users:
             try:
                 with open(self.file_name, "a", encoding="utf-8") as file:
