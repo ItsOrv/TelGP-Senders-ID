@@ -1,8 +1,8 @@
 import os
 from telethon.tl.types import Message
 from telethon.errors import ChannelInvalidError
-from utils.file_handler import FileHandler
-from utils.logger import setup_logger
+from src.file_handler import FileHandler
+from src.logger import setup_logger
 
 logger = setup_logger()
 
