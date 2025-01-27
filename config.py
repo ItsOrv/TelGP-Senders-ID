@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 try:
-    API_ID = os.getenv("API_ID", "default_api_id")
-    API_HASH = os.getenv("API_HASH", "default_api_hash")
+    API_ID = os.getenv("API_ID", "123")
+    API_HASH = os.getenv("API_HASH", "x1s2s3")
     SESSION_NAME = os.getenv("SESSION_NAME", "telegram_user_saver")
     LOG_FILE = os.getenv("LOG_FILE", "app.log")
 
